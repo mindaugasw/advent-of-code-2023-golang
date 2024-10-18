@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// https://adventofcode.com/2023/day/1
+
 var replaceMap = []string{
 	"one", "o1e",
 	"two", "t2o",

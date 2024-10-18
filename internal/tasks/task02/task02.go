@@ -7,8 +7,11 @@ import (
 	"strings"
 )
 
+// https://adventofcode.com/2023/day/2
+
 func init() {
 	tasks.Register(2, "A", SolveA)
+	tasks.Register(2, "B", SolveB)
 }
 
 type cubeSet map[string]int
@@ -37,7 +40,6 @@ func SolveA(input string) (result string, err error) {
 
 	for _, line := range lines {
 		g, err := parseLine(line)
-
 		if err != nil {
 			return "", err
 		}
@@ -45,6 +47,28 @@ func SolveA(input string) (result string, err error) {
 		if wasGamePossible(g, condition) {
 			sum += g.id
 		}
+	}
+
+	return strconv.Itoa(sum), nil
+}
+
+func SolveB(input string) (result string, err error) {
+	lines, err := internal.ReadLines(input)
+	if err != nil {
+		return
+	}
+
+	sum := 0
+
+	for _, line := range lines {
+		g, err := parseLine(line)
+		if err != nil {
+			return "", err
+		}
+
+		fewest := findFewestGameCubes(g)
+		setPower := fewest["red"] * fewest["green"] * fewest["blue"]
+		sum += setPower
 	}
 
 	return strconv.Itoa(sum), nil
@@ -96,4 +120,18 @@ func wasGamePossible(g game, condition cubeSet) bool {
 	}
 
 	return true
+}
+
+func findFewestGameCubes(g game) cubeSet {
+	fewest := newCubeSet()
+
+	for _, set := range g.sets {
+		for colorName := range fewest {
+			if fewest[colorName] < set[colorName] {
+				fewest[colorName] = set[colorName]
+			}
+		}
+	}
+
+	return fewest
 }
