@@ -7,6 +7,7 @@ import (
 
 	// Tasks self-register using the registry and init()
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task01"
+	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task02"
 )
 
 func TestSolutionProvider(t *testing.T) {
@@ -20,6 +21,8 @@ func TestSolutionProvider(t *testing.T) {
 		{1, "A", "input.txt", "54927"},
 		{1, "B", "exampleB.txt", "281"},
 		{1, "B", "input.txt", "54581"},
+		{2, "A", "example.txt", "8"},
+		{2, "A", "input.txt", "2317"},
 	}
 
 	for _, set := range dataSets {
