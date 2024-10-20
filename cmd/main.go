@@ -10,6 +10,7 @@ import (
 	// Tasks self-register using the registry and init()
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task01"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task02"
+	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task03"
 )
 
 func main() {
