@@ -1,6 +1,7 @@
 package task03
 
 import (
+	"fmt"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
 	"regexp"
@@ -11,7 +12,10 @@ import (
 
 func init() {
 	tasks.Register(3, "A", SolveA)
+	tasks.Register(3, "B", SolveB)
 }
+
+var gearMap map[string][]int
 
 func SolveA(input string) (result string, err error) {
 	lines, err := internal.ReadLines(input)
@@ -19,6 +23,7 @@ func SolveA(input string) (result string, err error) {
 		return
 	}
 
+	gearMap = make(map[string][]int)
 	pattern := regexp.MustCompile("\\d+")
 	sum := 0
 
@@ -28,7 +33,12 @@ func SolveA(input string) (result string, err error) {
 		for _, matchedNumber := range findResult {
 			matchedNumberIdxStart, matchedNumberIdxEnd := matchedNumber[0], matchedNumber[1]
 
-			if isPartNumber(lines, i, matchedNumberIdxStart, matchedNumberIdxEnd-matchedNumberIdxStart) {
+			isPart, err := isPartNumber(lines, i, matchedNumberIdxStart, matchedNumberIdxEnd-matchedNumberIdxStart)
+			if err != nil {
+				return "", err
+			}
+
+			if isPart {
 				partNumber, err := strconv.Atoi(lines[i][matchedNumberIdxStart:matchedNumberIdxEnd])
 				if err != nil {
 					return "", err
@@ -42,7 +52,33 @@ func SolveA(input string) (result string, err error) {
 	return strconv.Itoa(sum), nil
 }
 
-func isPartNumber(schematic []string, line int, index int, length int) bool {
+func SolveB(input string) (result string, err error) {
+	// SolveA is needed to fill gears map
+	_, err = SolveA(input)
+	if err != nil {
+		return
+	}
+
+	sum := 0
+	for _, values := range gearMap {
+		if len(values) != 2 {
+			continue
+		}
+
+		sum += values[0] * values[1]
+	}
+
+	return strconv.Itoa(sum), nil
+}
+
+func isPartNumber(schematic []string, line int, index int, length int) (isPart bool, err error) {
+	numberStr := schematic[line][index : index+length]
+	number, err := strconv.Atoi(numberStr)
+
+	if err != nil {
+		return
+	}
+
 	lineLength := len(schematic[0])
 	// surroundings is a block around the number.
 	// idxStart/End is the index (inclusive) of edge symbols that will go into the surroundings block.
@@ -55,33 +91,48 @@ func isPartNumber(schematic []string, line int, index int, length int) bool {
 	idxStart := max(0, index-1)
 	idxEnd := min(lineLength-1, index+length)
 
-	// add line above
 	if line != 0 {
-		surroundings = append(surroundings, schematic[line-1][idxStart:idxEnd+1])
+		lineAbove := schematic[line-1][idxStart : idxEnd+1]
+		surroundings = append(surroundings, lineAbove)
+		logGears(number, lineAbove, line-1, idxStart)
 	}
 
-	// add left symbol
 	if index != 0 {
-		surroundings = append(surroundings, schematic[line][idxStart:idxStart+1])
+		leftSymbol := schematic[line][idxStart : idxStart+1]
+		surroundings = append(surroundings, leftSymbol)
+		logGears(number, leftSymbol, line, idxStart)
 	}
 
-	// add right symbol
 	if idxEnd != (lineLength - 1) {
-		surroundings = append(surroundings, schematic[line][idxEnd:idxEnd+1])
+		rightSymbol := schematic[line][idxEnd : idxEnd+1]
+		surroundings = append(surroundings, rightSymbol)
+		logGears(number, rightSymbol, line, idxEnd)
 	}
 
-	// add line below
 	if line != (len(schematic) - 1) {
-		surroundings = append(surroundings, schematic[line+1][idxStart:idxEnd+1])
+		lineBelow := schematic[line+1][idxStart : idxEnd+1]
+		surroundings = append(surroundings, lineBelow)
+		logGears(number, lineBelow, line+1, idxStart)
 	}
 
 	for _, symbols := range surroundings {
 		for _, symbol := range symbols {
 			if symbol != '.' {
-				return true
+				return true, nil
 			}
 		}
 	}
 
-	return false
+	return false, nil
+}
+
+func logGears(number int, surroundText string, line int, blockStartIdx int) {
+	for i, symbol := range surroundText {
+		if symbol != '*' {
+			continue
+		}
+
+		positionText := fmt.Sprintf("%v;%v", line, blockStartIdx+i)
+		gearMap[positionText] = append(gearMap[positionText], number)
+	}
 }
