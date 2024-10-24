@@ -9,6 +9,7 @@ import (
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task01"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task02"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task03"
+	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task04"
 )
 
 func TestSolutionProvider(t *testing.T) {
@@ -30,6 +31,8 @@ func TestSolutionProvider(t *testing.T) {
 		{3, "A", "input.txt", 530849},
 		{3, "B", "example.txt", 467835},
 		{3, "B", "input.txt", 84900879},
+		{4, "A", "example.txt", 13},
+		{4, "A", "input.txt", 21568},
 	}
 
 	for _, set := range dataSets {
