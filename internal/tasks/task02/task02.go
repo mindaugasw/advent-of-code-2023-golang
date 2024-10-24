@@ -29,7 +29,7 @@ func newCubeSet() cubeSet {
 	}
 }
 
-func SolveA(input string) (result string, err error) {
+func SolveA(input string) (result int, err error) {
 	lines, err := internal.ReadLines(input)
 	if err != nil {
 		return
@@ -41,7 +41,7 @@ func SolveA(input string) (result string, err error) {
 	for _, line := range lines {
 		g, err := parseLine(line)
 		if err != nil {
-			return "", err
+			return 0, err
 		}
 
 		if wasGamePossible(g, condition) {
@@ -49,10 +49,10 @@ func SolveA(input string) (result string, err error) {
 		}
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
 
-func SolveB(input string) (result string, err error) {
+func SolveB(input string) (result int, err error) {
 	lines, err := internal.ReadLines(input)
 	if err != nil {
 		return
@@ -63,7 +63,7 @@ func SolveB(input string) (result string, err error) {
 	for _, line := range lines {
 		g, err := parseLine(line)
 		if err != nil {
-			return "", err
+			return 0, err
 		}
 
 		fewest := findFewestGameCubes(g)
@@ -71,7 +71,7 @@ func SolveB(input string) (result string, err error) {
 		sum += setPower
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
 
 func parseLine(line string) (g game, err error) {

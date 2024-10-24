@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-type TaskFunction func(string) (string, error)
+type TaskFunction func(string) (int, error)
 
 var taskRegistry = make(map[string]TaskFunction)
 

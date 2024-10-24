@@ -16,20 +16,20 @@ func TestSolutionProvider(t *testing.T) {
 		number   int
 		part     string
 		input    string
-		expected string
+		expected int
 	}{
-		{1, "A", "exampleA.txt", "142"},
-		{1, "A", "input.txt", "54927"},
-		{1, "B", "exampleB.txt", "281"},
-		{1, "B", "input.txt", "54581"},
-		{2, "A", "example.txt", "8"},
-		{2, "A", "input.txt", "2317"},
-		{2, "B", "example.txt", "2286"},
-		{2, "B", "input.txt", "74804"},
-		{3, "A", "example.txt", "4361"},
-		{3, "A", "input.txt", "530849"},
-		{3, "B", "example.txt", "467835"},
-		{3, "B", "input.txt", "84900879"},
+		{1, "A", "exampleA.txt", 142},
+		{1, "A", "input.txt", 54927},
+		{1, "B", "exampleB.txt", 281},
+		{1, "B", "input.txt", 54581},
+		{2, "A", "example.txt", 8},
+		{2, "A", "input.txt", 2317},
+		{2, "B", "example.txt", 2286},
+		{2, "B", "input.txt", 74804},
+		{3, "A", "example.txt", 4361},
+		{3, "A", "input.txt", 530849},
+		{3, "B", "example.txt", 467835},
+		{3, "B", "input.txt", 84900879},
 	}
 
 	for _, set := range dataSets {

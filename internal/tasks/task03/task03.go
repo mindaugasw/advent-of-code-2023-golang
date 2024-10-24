@@ -17,7 +17,7 @@ func init() {
 
 var gearMap map[string][]int
 
-func SolveA(input string) (result string, err error) {
+func SolveA(input string) (result int, err error) {
 	lines, err := internal.ReadLines(input)
 	if err != nil {
 		return
@@ -35,13 +35,13 @@ func SolveA(input string) (result string, err error) {
 
 			isPart, err := isPartNumber(lines, i, matchedNumberIdxStart, matchedNumberIdxEnd-matchedNumberIdxStart)
 			if err != nil {
-				return "", err
+				return 0, err
 			}
 
 			if isPart {
 				partNumber, err := strconv.Atoi(lines[i][matchedNumberIdxStart:matchedNumberIdxEnd])
 				if err != nil {
-					return "", err
+					return 0, err
 				}
 
 				sum += partNumber
@@ -49,10 +49,10 @@ func SolveA(input string) (result string, err error) {
 		}
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
 
-func SolveB(input string) (result string, err error) {
+func SolveB(input string) (result int, err error) {
 	// SolveA is needed to fill gears map
 	_, err = SolveA(input)
 	if err != nil {
@@ -68,7 +68,7 @@ func SolveB(input string) (result string, err error) {
 		sum += values[0] * values[1]
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
 
 func isPartNumber(schematic []string, line int, index int, length int) (isPart bool, err error) {

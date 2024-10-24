@@ -27,7 +27,7 @@ func init() {
 	tasks.Register(1, "B", SolveB)
 }
 
-func SolveA(input string) (result string, err error) {
+func SolveA(input string) (result int, err error) {
 	lines, err := internal.ReadLines(input)
 	if err != nil {
 		return
@@ -47,16 +47,16 @@ func SolveA(input string) (result string, err error) {
 		lineNumber, err := strconv.Atoi(lineDigits)
 
 		if err != nil {
-			return "", err
+			return 0, err
 		}
 
 		sum += lineNumber
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
 
-func SolveB(input string) (result string, err error) {
+func SolveB(input string) (result int, err error) {
 	lines, err := internal.ReadLines(input)
 	if err != nil {
 		return
@@ -83,11 +83,11 @@ func SolveB(input string) (result string, err error) {
 		lineNumber, err := strconv.Atoi(lineDigits)
 
 		if err != nil {
-			return "", err
+			return 0, err
 		}
 
 		sum += lineNumber
 	}
 
-	return strconv.Itoa(sum), nil
+	return sum, nil
 }
