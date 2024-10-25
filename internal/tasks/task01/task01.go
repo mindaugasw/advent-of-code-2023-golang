@@ -4,7 +4,6 @@ import (
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -44,11 +43,7 @@ func SolveA(input string) (result int, err error) {
 		}
 
 		lineDigits := matches[0] + matches[len(matches)-1]
-		lineNumber, err := strconv.Atoi(lineDigits)
-
-		if err != nil {
-			return 0, err
-		}
+		lineNumber := internal.ParseInt(lineDigits)
 
 		sum += lineNumber
 	}
@@ -80,12 +75,7 @@ func SolveB(input string) (result int, err error) {
 		}
 
 		lineDigits := matches[0] + matches[len(matches)-1]
-		lineNumber, err := strconv.Atoi(lineDigits)
-
-		if err != nil {
-			return 0, err
-		}
-
+		lineNumber := internal.ParseInt(lineDigits)
 		sum += lineNumber
 	}
 

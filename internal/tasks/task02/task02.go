@@ -3,7 +3,6 @@ package task02
 import (
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
-	"strconv"
 	"strings"
 )
 
@@ -81,12 +80,7 @@ func parseLine(line string) (g game, err error) {
 	}()
 
 	gameId := strings.Split(gameStr, " ")[1]
-	g.id, err = strconv.Atoi(gameId)
-
-	if err != nil {
-		return
-	}
-
+	g.id = internal.ParseInt(gameId)
 	setsSplit := strings.Split(setsStr, ";")
 
 	for _, setStr := range setsSplit {
@@ -97,11 +91,7 @@ func parseLine(line string) (g game, err error) {
 		for _, colorSplit := range colorsSplit {
 			colorParts := strings.Split(strings.TrimSpace(colorSplit), " ")
 			colorCountStr, colorName := colorParts[0], colorParts[1]
-			colorCount, err := strconv.Atoi(colorCountStr)
-
-			if err != nil {
-				return game{}, err
-			}
+			colorCount := internal.ParseInt(colorCountStr)
 
 			cubes[colorName] = colorCount
 		}

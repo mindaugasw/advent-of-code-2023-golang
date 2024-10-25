@@ -4,7 +4,6 @@ import (
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
 	"math"
-	"strconv"
 	"strings"
 )
 
@@ -110,11 +109,7 @@ func parseNumberList(numbers string) (list map[int]bool, err error) {
 			continue
 		}
 
-		number, err := strconv.Atoi(numberStr)
-		if err != nil {
-			return nil, err
-		}
-
+		number := internal.ParseInt(numberStr)
 		list[number] = true
 	}
 

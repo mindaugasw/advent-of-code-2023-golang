@@ -3,10 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
 	"os"
-	"strconv"
-
 	// Tasks self-register using the registry and init()
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task01"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task02"
@@ -46,12 +45,7 @@ func findTask() (name string, taskFunc tasks.TaskFunction, input string, err err
 		return
 	}
 
-	taskNumber, err := strconv.Atoi(os.Args[1])
-
-	if err != nil {
-		return
-	}
-
+	taskNumber := internal.ParseInt(os.Args[1])
 	taskPart := os.Args[2]
 	taskFunc, ok := tasks.Get(taskNumber, taskPart)
 

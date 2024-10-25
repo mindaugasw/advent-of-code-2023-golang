@@ -5,7 +5,6 @@ import (
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
 	"regexp"
-	"strconv"
 )
 
 // https://adventofcode.com/2023/day/3
@@ -39,11 +38,7 @@ func SolveA(input string) (result int, err error) {
 			}
 
 			if isPart {
-				partNumber, err := strconv.Atoi(lines[i][matchedNumberIdxStart:matchedNumberIdxEnd])
-				if err != nil {
-					return 0, err
-				}
-
+				partNumber := internal.ParseInt(lines[i][matchedNumberIdxStart:matchedNumberIdxEnd])
 				sum += partNumber
 			}
 		}
@@ -73,12 +68,7 @@ func SolveB(input string) (result int, err error) {
 
 func isPartNumber(schematic []string, line int, index int, length int) (isPart bool, err error) {
 	numberStr := schematic[line][index : index+length]
-	number, err := strconv.Atoi(numberStr)
-
-	if err != nil {
-		return
-	}
-
+	number := internal.ParseInt(numberStr)
 	lineLength := len(schematic[0])
 	// surroundings is a block around the number.
 	// idxStart/End is the index (inclusive) of edge symbols that will go into the surroundings block.
