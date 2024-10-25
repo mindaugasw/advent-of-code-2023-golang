@@ -33,6 +33,8 @@ func TestSolutionProvider(t *testing.T) {
 		{3, "B", "input.txt", 84900879},
 		{4, "A", "example.txt", 13},
 		{4, "A", "input.txt", 21568},
+		{4, "B", "example.txt", 30},
+		{4, "B", "input.txt", 11827296},
 	}
 
 	for _, set := range dataSets {
