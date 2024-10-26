@@ -70,6 +70,8 @@ func TestSolutionProvider(t *testing.T) {
 		newSet(6, "B", "input", 34655848),
 		newSet(7, "A", "example", 6440),
 		newSet(7, "A", "input", 248217452),
+		newSet(7, "B", "example", 5905),
+		newSet(7, "B", "input", 245576185),
 	}
 
 	for _, set := range dataSets {
