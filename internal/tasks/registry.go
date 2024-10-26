@@ -10,7 +10,17 @@ type TaskFunction func(string) (int, error)
 var taskRegistry = make(map[string]TaskFunction)
 
 func Register(number int, part string, taskFunc TaskFunction) {
-	taskRegistry[GetFullName(number, part)] = taskFunc
+	if part != "A" && part != "B" {
+		panic("unknown task part: " + part)
+	}
+
+	fullName := GetFullName(number, part)
+
+	if _, found := taskRegistry[fullName]; found {
+		panic("attempted to register task twice: " + fullName)
+	}
+
+	taskRegistry[fullName] = taskFunc
 }
 
 func Get(number int, part string) (taskFunc TaskFunction, ok bool) {
