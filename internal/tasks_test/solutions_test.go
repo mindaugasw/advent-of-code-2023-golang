@@ -3,6 +3,9 @@ package tasks_test
 import (
 	"fmt"
 	"github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks"
+	"os"
+	"slices"
+	"strings"
 	"testing"
 
 	// Tasks self-register using the registry and init()
@@ -13,36 +16,59 @@ import (
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task05"
 )
 
+type dataSet struct {
+	number      int
+	part        string
+	input       string
+	expected    int
+	longRunning bool
+}
+
+func newSet(number int, part string, input string, expected int) dataSet {
+	if !strings.Contains(input, ".") {
+		input += ".txt"
+	}
+
+	return dataSet{number, part, input, expected, false}
+}
+
+func newSetLongRunning(number int, part string, input string, expected int) dataSet {
+	ds := newSet(number, part, input, expected)
+	ds.longRunning = true
+	return ds
+}
+
 func TestSolutionProvider(t *testing.T) {
-	dataSets := []struct {
-		number   int
-		part     string
-		input    string
-		expected int
-	}{
-		{1, "A", "exampleA.txt", 142},
-		{1, "A", "input.txt", 54927},
-		{1, "B", "exampleB.txt", 281},
-		{1, "B", "input.txt", 54581},
-		{2, "A", "example.txt", 8},
-		{2, "A", "input.txt", 2317},
-		{2, "B", "example.txt", 2286},
-		{2, "B", "input.txt", 74804},
-		{3, "A", "example.txt", 4361},
-		{3, "A", "input.txt", 530849},
-		{3, "B", "example.txt", 467835},
-		{3, "B", "input.txt", 84900879},
-		{4, "A", "example.txt", 13},
-		{4, "A", "input.txt", 21568},
-		{4, "B", "example.txt", 30},
-		{4, "B", "input.txt", 11827296},
-		{5, "A", "example.txt", 35},
-		{5, "A", "input.txt", 322500873},
-		{5, "B", "example.txt", 46},
-		{5, "A", "input.txt", 108956227},
+	runLongTests := slices.Contains(os.Args, "long")
+
+	dataSets := []dataSet{
+		newSet(1, "A", "exampleA", 142),
+		newSet(1, "A", "input", 54927),
+		newSet(1, "B", "exampleB", 281),
+		newSet(1, "B", "input", 54581),
+		newSet(2, "A", "example", 8),
+		newSet(2, "A", "input", 2317),
+		newSet(2, "B", "example", 2286),
+		newSet(2, "B", "input", 74804),
+		newSet(3, "A", "example", 4361),
+		newSet(3, "A", "input", 530849),
+		newSet(3, "B", "example", 467835),
+		newSet(3, "B", "input", 84900879),
+		newSet(4, "A", "example", 13),
+		newSet(4, "A", "input", 21568),
+		newSet(4, "B", "example", 30),
+		newSet(4, "B", "input", 11827296),
+		newSet(5, "A", "example", 35),
+		newSetLongRunning(5, "A", "input", 322500873),
+		newSet(5, "B", "example", 46),
+		newSetLongRunning(5, "B", "input", 108956227),
 	}
 
 	for _, set := range dataSets {
+		if set.longRunning && !runLongTests {
+			continue
+		}
+
 		testName := fmt.Sprintf("%d%s-%s", set.number, set.part, set.input)
 		t.Run(
 			testName, func(t *testing.T) {

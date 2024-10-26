@@ -9,4 +9,5 @@ For example:
 
 ### Run tests
 
-`go test ./internal/tasks_test`
+- `go test ./internal/tasks_test` (skip long-running tests)
+- `go test ./internal/tasks_test -args long` (all tests)
