@@ -14,6 +14,7 @@ import (
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task05"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task06"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task07"
+	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task08"
 )
 
 func main() {

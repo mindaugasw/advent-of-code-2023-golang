@@ -16,6 +16,7 @@ import (
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task05"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task06"
 	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task07"
+	_ "github.com/mindaugasw/advent-of-code-2023-golang/internal/tasks/task08"
 )
 
 type dataSet struct {
@@ -72,6 +73,9 @@ func TestSolutionProvider(t *testing.T) {
 		newSet(7, "A", "input", 248217452),
 		newSet(7, "B", "example", 5905),
 		newSet(7, "B", "input", 245576185),
+		newSet(8, "A", "example1", 2),
+		newSet(8, "A", "example2", 6),
+		newSet(8, "A", "input", 21251),
 	}
 
 	for _, set := range dataSets {
